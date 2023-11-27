@@ -4,7 +4,7 @@ module.exports = {
     async getUsers (req,res) {
         try{
             const users = await User.find();
-            res.json(users);
+            res.status(200).json(users);
         }
         catch (err) {
             res.status(500).json(err);
@@ -26,7 +26,7 @@ module.exports = {
     async postNewUser (req,res) {
         try {
             const user = await User.create(req.body);
-            res.json(user);
+            res.status(200).json(user);
         }
         catch (err) {
             res.status(500).json(err);
@@ -64,7 +64,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    async deletFriend (req,res) {
+    async deleteFriend (req,res) {
         try {
             const user = await User.findOneAndUpdate(
                 {_id: req.params.userId},
