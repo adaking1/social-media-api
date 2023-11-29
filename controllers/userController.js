@@ -68,9 +68,18 @@ module.exports = {
         try {
             const user = await User.findOneAndUpdate(
                 {_id: req.params.userId}, 
-                {$addToSet: {friends: req.body}},
+                {$addToSet: {friends: req.params.friendId}},
                 { runValidators: true, new: true }
             );
+            const friend = await User.findOneAndUpdate(
+                {_id: req.params.friendId}, 
+                {$addToSet: {friends: req.params.userId}},
+                { runValidators: true, new: true }
+            )
+            if (!friend) {
+                res.status(404).json({message: 'user not found'});
+                return;
+            }
             if (!user) {
                 res.status(404).json({message: 'user not found'});
                 return;
@@ -85,8 +94,13 @@ module.exports = {
         try {
             const user = await User.findOneAndUpdate(
                 {_id: req.params.userId},
-                {$pull: {friends: req.body}},
-                { runValidators: true, new: true }
+                {$pull: {friends: req.params.friendId}},
+                {runValidators: true, new: true}
+            );
+            const friend = await User.findOneAndUpdate(
+                {_id: req.params.friendId},
+                {$pull: {friends: req.params.userId}},
+                {runValidators: true, new: true}
             );
             if (!user) {
                 res.status(404).json({message: 'user not found'});

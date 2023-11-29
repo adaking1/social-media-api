@@ -8,11 +8,12 @@ router
     .get(getUsers)
     .post(postNewUser);
     
+router
+    .route('/:userId')
+    .get(getUserById)
+    .put(updateUser)
+    .delete(deleteUser);
 
-router.route('/:userId')
-.get(getUserById)
-.put(updateUser)
-.delete(deleteUser);
 
 router
     .route('/:userId/friends/:friendId')

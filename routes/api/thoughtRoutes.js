@@ -7,16 +7,19 @@ router
     .route('/')
     .get(getAllThoughts)
     .post(postNewThought);
-    
 
-router.route('/:thoughtId')
+router
+    .route('/:thoughtId')
     .get(getThoughtById)
     .put(updateThought)
     .delete(deleteThought); 
 
 router
     .route('/:thoughtId/reactions')
-    .post(postReaction)
+    .post(postReaction);
+
+router
+    .route('/:thoughtId/reactions/:reactionId')
     .delete(deleteReaction);
 
     
