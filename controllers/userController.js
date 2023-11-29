@@ -7,12 +7,13 @@ module.exports = {
             res.status(200).json(users);
         }
         catch (err) {
+            console.error({message:err});
             res.status(500).json(err);
         }
     },
     async getUserById (req,res) {
         try{
-            const user = await User.findOne({_id: req.params.userId});
+            const user = await User.findOne({_id: req.params.userId}).populate('thoughts');
             if (!user) {
                 res.status(404).json({message: 'User not found'});
                 return;

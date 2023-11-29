@@ -26,11 +26,18 @@ module.exports = {
     async postNewThought (req,res) {
         try {
             const thought = await Thought.create(req.body);
-            // const user = await User.findOneAndUpdate(
-            //     {username: thought.username},
-            //     {$addToSet: thought}
-            //     );
-            // need to test. trying to add new thought to user's thought array
+            console.log(thought._id);
+            const user = await User.findOneAndUpdate(
+                {username: thought.username},
+                {$addToSet: {thoughts: thought._id}},
+                { runValidators: true, new: true }
+            );
+            if (!user) {
+                res.status(404).json({message: 'user not found'});
+                return;
+            }
+    
+            res.status(200).json(thought);
         }
         catch (err) {
             res.status(500).json(err);

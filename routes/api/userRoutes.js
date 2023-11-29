@@ -6,11 +6,13 @@ const {getUsers, getUserById,
 router
     .route('/')
     .get(getUsers)
-    .post(postNewUser)
-    .put(updateUser)
-    .delete(deleteUser);
+    .post(postNewUser);
+    
 
-router.route('/:userId').get(getUserById);
+router.route('/:userId')
+.get(getUserById)
+.put(updateUser)
+.delete(deleteUser);
 
 router
     .route('/:userId/friends/:friendId')

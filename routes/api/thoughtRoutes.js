@@ -6,11 +6,13 @@ const {getAllThoughts, getThoughtById,
 router
     .route('/')
     .get(getAllThoughts)
-    .post(postNewThought)
-    .put(updateThought)
-    .delete(deleteThought);
+    .post(postNewThought);
+    
 
-router.route('/:thoughtId').get(getThoughtById);
+router.route('/:thoughtId')
+    .get(getThoughtById)
+    .put(updateThought)
+    .delete(deleteThought); 
 
 router
     .route('/:thoughtId/reactions')
