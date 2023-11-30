@@ -29,7 +29,6 @@ module.exports = {
     async postNewThought (req,res) {
         try {
             const thought = await Thought.create(req.body);
-            console.log(thought._id);
             const user = await User.findOneAndUpdate(
                 {username: thought.username},
                 {$addToSet: {thoughts: thought._id}},
