@@ -1,6 +1,7 @@
 const {User, Thought} = require('../models');
 
 module.exports = {
+    // get route that displays all thoughts
     async getAllThoughts (req,res) {
         try {
             const thought = await Thought.find();
@@ -10,6 +11,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // get route that gets one thought by id 
     async getThoughtById (req,res) {
         try {
             const thought = await Thought.findOne({_id: req.params.thoughtId});
@@ -23,6 +25,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // post route that creates a new thought
     async postNewThought (req,res) {
         try {
             const thought = await Thought.create(req.body);
@@ -43,6 +46,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // put route that updates a thought by id
     async updateThought (req,res) {
         try {
             const thought = await Thought.findOneAndUpdate(
@@ -60,6 +64,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // delete route that deletes a thought by id
     async deleteThought (req,res) {
         try {
             const thought = await Thought.findOneAndRemove({_id: req.params.thoughtId});
@@ -73,6 +78,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // post route that creates a reaction to a thought by id
     async postReaction (req,res) {
         try {
             const reaction = await Thought.findOneAndUpdate(
@@ -90,6 +96,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // delete route that deletes reaction by id 
     async deleteReaction (req,res) {
         try {
             const thought = await Thought.findOneAndUpdate(

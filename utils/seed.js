@@ -19,7 +19,6 @@ connection.once('open', async () => {
 
     await Thought.collection.insertMany(thoughts);
     users.forEach((user) => {
-        console.log(user.username);
         thoughts.forEach((thought) => {
             if (thought.username === user.username) {
                 if (!user.thoughts) {
@@ -33,7 +32,7 @@ connection.once('open', async () => {
     });
 
     await User.collection.insertMany(users);
-    console.log(users);
+    console.table(users);
 
 
 

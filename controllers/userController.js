@@ -1,6 +1,7 @@
 const {User, Thought} = require('../models');
 
 module.exports = {
+    // get route that displays all users
     async getUsers (req,res) {
         try{
             const users = await User.find();
@@ -11,6 +12,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // get route that gets one user by id
     async getUserById (req,res) {
         try{
             const user = await User.findOne({_id: req.params.userId}).populate('thoughts');
@@ -24,6 +26,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // post route that creates a new user
     async postNewUser (req,res) {
         try {
             const user = await User.create(req.body);
@@ -33,6 +36,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // put route that updates a users info by id
     async updateUser (req,res) {
         try{
             const user = await User.findOneAndUpdate(
@@ -49,6 +53,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // delete route that deletes a user and their associated thoughts
     async deleteUser (req,res) {
         try {
             const user = await User.findOneAndRemove({_id: req.params.userId});
@@ -63,6 +68,8 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // post route that adds a new friend by friendId to the user's friend list by userId
+    // it also adds the user to the friend's friend list
     async addNewFriend (req,res) {
         try {
             const user = await User.findOneAndUpdate(
@@ -89,6 +96,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // delete route that deletes a friend by id from a user's friend list
     async deleteFriend (req,res) {
         try {
             const user = await User.findOneAndUpdate(
