@@ -52,12 +52,11 @@ module.exports = {
     async deleteUser (req,res) {
         try {
             const user = await User.findOneAndRemove({_id: req.params.userId});
+            const thoughts = await Thought.deleteMany({username: user.username});
             if (!user) {
                 res.status(404).json({message: 'User not found'});
                 return;
             }
-            // const userThoughts = await Thought.find
-            // find a way to delete users thoughts when user is deleted
             res.status(200).json({message: 'User and all data deleted'});
         }
         catch (err) {
@@ -102,6 +101,9 @@ module.exports = {
                 {$pull: {friends: req.params.userId}},
                 {runValidators: true, new: true}
             );
+            if (!friend) {
+                res.status(404).json({message: 'user not found'});
+            }
             if (!user) {
                 res.status(404).json({message: 'user not found'});
                 return;
